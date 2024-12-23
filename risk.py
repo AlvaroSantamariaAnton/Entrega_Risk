@@ -12,39 +12,40 @@ territorios = {
 
 # Tropas y Recursos
 tropas = {
-    "Infantería": {"Fuerza": 1, "Costo": 1},
-    "Caballería": {"Fuerza": 3, "Costo": 3},
-    "Artillería": {"Fuerza": 5, "Costo": 5}
+    "Infanteria": {"Fuerza": 1, "Costo": 1},
+    "Caballeria": {"Fuerza": 3, "Costo": 3},
+    "Artilleria": {"Fuerza": 5, "Costo": 5}
 }
 
 # Puntos iniciales disponibles
 puntos_iniciales = 20
 
 def mostrar_reglas():
+    # Muestra las reglas del juego para el jugador.
     reglas = """
     ==================================
             REGLAS DEL JUEGO
     ==================================
 
     Tipos de Tropas Disponibles:
-    a. Infantería:
-       - Soldados básicos, numerosos pero poco efectivos.
+    a. Infanteria:
+       - Soldados basicos, numerosos pero poco efectivos.
        - Costo: 1 punto por tropa.
 
-    b. Caballería:
-       - Tropas rápidas y más fuertes.
+    b. Caballeria:
+       - Tropas rapidas y mas fuertes.
        - Costo: 3 puntos por tropa.
 
-    c. Artillería:
+    c. Artilleria:
        - Tropas costosas pero con gran impacto.
        - Costo: 5 puntos por tropa.
 
     Recursos Disponibles para Entrenar Tropas:
     - Dispones de 20 puntos en total para entrenar tus tropas.
-    - El ejército debe contener al menos:
-        1 unidad de infantería.
-        1 unidad de caballería.
-        1 unidad de artillería.
+    - El ejercito debe contener al menos:
+        1 unidad de infanteria.
+        1 unidad de caballeria.
+        1 unidad de artilleria.
 
     Territorios Enemigos:
     - Hay 3 territorios enemigos que debes atacar en el orden indicado.
@@ -57,8 +58,9 @@ def mostrar_reglas():
     """
     print(reglas)
 
-# Representación inicial del tablero
+# Representacion inicial del tablero
 def inicializar_tablero():
+    # Define el estado inicial de los territorios.
     return {
         "Territorio 1": {"Defensa": 10, "Estado": "Disponible"},
         "Territorio 2": {"Defensa": 15, "Estado": "Disponible"},
@@ -85,36 +87,41 @@ def generar_combinaciones_tropas():
     """
     combinaciones = []
 
-    for infanteria in range(1, puntos_iniciales // tropas["Infantería"]["Costo"] + 1):
-        for caballeria in range(1, puntos_iniciales // tropas["Caballería"]["Costo"] + 1):
-            for artilleria in range(1, puntos_iniciales // tropas["Artillería"]["Costo"] + 1):
+    # Iterar para calcular todas las posibles distribuciones de tropas.
+    for infanteria in range(1, puntos_iniciales // tropas["Infanteria"]["Costo"] + 1):
+        for caballeria in range(1, puntos_iniciales // tropas["Caballeria"]["Costo"] + 1):
+            for artilleria in range(1, puntos_iniciales // tropas["Artilleria"]["Costo"] + 1):
+                # Calcular el costo total de la combinacion.
                 costo_total = (
-                    infanteria * tropas["Infantería"]["Costo"] +
-                    caballeria * tropas["Caballería"]["Costo"] +
-                    artilleria * tropas["Artillería"]["Costo"]
+                    infanteria * tropas["Infanteria"]["Costo"] +
+                    caballeria * tropas["Caballeria"]["Costo"] +
+                    artilleria * tropas["Artilleria"]["Costo"]
                 )
+                # Calcular la fuerza total de la combinacion.
                 fuerza_total = (
-                    infanteria * tropas["Infantería"]["Fuerza"] +
-                    caballeria * tropas["Caballería"]["Fuerza"] +
-                    artilleria * tropas["Artillería"]["Fuerza"]
+                    infanteria * tropas["Infanteria"]["Fuerza"] +
+                    caballeria * tropas["Caballeria"]["Fuerza"] +
+                    artilleria * tropas["Artilleria"]["Fuerza"]
                 )
+                # Solo incluir combinaciones validas dentro del limite de puntos.
                 if costo_total <= puntos_iniciales:
                     combinaciones.append({
-                        "Infantería": infanteria,
-                        "Caballería": caballeria,
-                        "Artillería": artilleria,
+                        "Infanteria": infanteria,
+                        "Caballeria": caballeria,
+                        "Artilleria": artilleria,
                         "Costo Total": costo_total,
                         "Fuerza Total": fuerza_total
                     })
 
+    # Mostrar las combinaciones posibles.
     print("\n==============================================")
-    print("Posibles opciones de combinación de ejércitos:")
+    print("Posibles opciones de combinacion de ejercitos:")
     print("==============================================")
     for i, combinacion in enumerate(combinaciones, start=1):
-        print(f"Opción {i}: {combinacion}")
-    print("===========================")
+        print(f"Opcion {i}: {combinacion}")
+    print("==========================")
     print(f"Total de combinaciones: {len(combinaciones)}")
-    print("===========================")
+    print("==========================")
     return combinaciones
 
 def generar_permutaciones_territorios(territorios):
@@ -127,7 +134,7 @@ def generar_permutaciones_territorios(territorios):
     print("Permutaciones posibles del orden de ataque:")
     print("===========================================")
     for i, permutacion in enumerate(permutaciones, start=1):
-        print(f"Permutación {i}: {permutacion}")
+        print(f"Permutacion {i}: {permutacion}")
     print("==========================")
     print(f"Total de permutaciones: {len(permutaciones)}")
     print("==========================")
@@ -142,31 +149,31 @@ def simulacion_juego():
     combinaciones = generar_combinaciones_tropas()
     permutaciones = generar_permutaciones_territorios(territorios)
 
-    # Selección de combinación de tropas
+    # Seleccion de combinacion de tropas por el jugador.
     while True:
-        opcion_ejercito = input("\nSelecciona el número de opción de ejército (1 a {}): ".format(len(combinaciones)))
+        opcion_ejercito = input("\nSelecciona el numero de opcion de ejercito (1 a {}): ".format(len(combinaciones)))
         if opcion_ejercito.isdigit() and 1 <= int(opcion_ejercito) <= len(combinaciones):
             opcion_ejercito = int(opcion_ejercito) - 1
             ejercito_seleccionado = combinaciones[opcion_ejercito]
             break
         else:
-            print("Entrada inválida. Inténtalo de nuevo.")
+            print("Entrada invalida. Intentalo de nuevo.")
 
-    # Selección de orden de ataque
+    # Seleccion de orden de ataque por el jugador.
     while True:
-        opcion_ataque = input("\nSelecciona el número de orden de ataque (1 a {}): ".format(len(permutaciones)))
+        opcion_ataque = input("\nSelecciona el numero de orden de ataque (1 a {}): ".format(len(permutaciones)))
         if opcion_ataque.isdigit() and 1 <= int(opcion_ataque) <= len(permutaciones):
             opcion_ataque = int(opcion_ataque) - 1
             orden_ataque = permutaciones[opcion_ataque]
             break
         else:
-            print("Entrada inválida. Inténtalo de nuevo.")
+            print("Entrada invalida. Intentalo de nuevo.")
 
-    # Simulación del juego
+    # Inicio de la simulacion del juego.
     print("\n===========================================")
-    print("Comienza la simulación del juego")
+    print("Comienza la simulacion del juego")
     print("===========================================")
-    print(f"Ejército seleccionado: {ejercito_seleccionado}")
+    print(f"Ejercito seleccionado: {ejercito_seleccionado}")
     print(f"Orden de ataque seleccionado: {orden_ataque}")
 
     resultado_simulacion = {
@@ -175,13 +182,15 @@ def simulacion_juego():
         "resultado": []
     }
 
+    # Iterar sobre cada territorio en el orden seleccionado.
     for territorio in orden_ataque:
         defensa_territorio = tablero[territorio]["Defensa"]
         fuerza_total = ejercito_seleccionado["Fuerza Total"]
 
         print(f"\nAtacando {territorio}...")
-        time.sleep(2)
+        time.sleep(2)  # Simular tiempo de ataque.
 
+        # Verificar si el ejercito tiene suficiente fuerza para conquistar el territorio.
         if fuerza_total >= defensa_territorio:
             tablero[territorio]["Estado"] = "Conquistado"
             print(f"{territorio} ha sido conquistado.")
@@ -191,27 +200,25 @@ def simulacion_juego():
             resultado_simulacion["resultado"].append({"territorio": territorio, "estado": "No Conquistado"})
             break
 
+        # Mostrar el tablero despues de cada ataque.
         mostrar_tablero(tablero)
         time.sleep(2)
 
+    # Finalizar simulacion y reiniciar el tablero.
     print("\n===========================================")
-    print("Simulación terminada")
+    print("Simulacion terminada")
     print("===========================================")
     mostrar_tablero(tablero)
-
-    # Guardar los resultados en JSON
     guardar_resultados(resultado_simulacion, "simulaciones.json")
-
-    # Reiniciar el tablero al final
     tablero = inicializar_tablero()
     print("\nEl tablero ha sido reiniciado.")
     mostrar_tablero(tablero)
 
 def optimizar_ataques():
     """
-    Permite optimizar ataques según dos opciones:
-    1. Seleccionar un ejército y determinar la mejor permutación de ataques.
-    2. Seleccionar una permutación y determinar el mejor ejército.
+    Permite optimizar ataques segun dos opciones:
+    1. Seleccionar un ejercito y determinar la mejor permutacion de ataques.
+    2. Seleccionar una permutacion y determinar el mejor ejercito.
     """
     combinaciones = generar_combinaciones_tropas()
     permutaciones = generar_permutaciones_territorios(territorios)
@@ -219,24 +226,23 @@ def optimizar_ataques():
     print("\n============================================")
     print("            OPTIMIZAR ATAQUES")
     print("============================================")
-    print("1. Seleccionar un ejército y determinar la mejor permutación de ataques.")
-    print("2. Seleccionar una permutación y determinar el mejor ejército.")
+    print("1. Seleccionar un ejercito y determinar la mejor permutacion de ataques.")
+    print("2. Seleccionar una permutacion y determinar el mejor ejercito.")
     print("============================================")
 
     while True:
-        opcion = input("Selecciona una opción (1-2): ")
+        opcion = input("Selecciona una opcion (1-2): ")
         if opcion == "1":
-            # Selección de un ejército
             while True:
-                opcion_ejercito = input("\nSelecciona el número de opción de ejército (1 a {}): ".format(len(combinaciones)))
+                opcion_ejercito = input("\nSelecciona el numero de opcion de ejercito (1 a {}): ".format(len(combinaciones)))
                 if opcion_ejercito.isdigit() and 1 <= int(opcion_ejercito) <= len(combinaciones):
                     opcion_ejercito = int(opcion_ejercito) - 1
                     ejercito_seleccionado = combinaciones[opcion_ejercito]
                     break
                 else:
-                    print("Entrada inválida. Por favor, introduce un número válido.")
+                    print("Entrada invalida. Por favor, introduce un numero valido.")
 
-            # Determinar la mejor permutación de ataques
+            # Buscar la mejor permutacion para el ejercito seleccionado.
             mejor_permutacion = None
             max_territorios_conquistados = 0
 
@@ -255,33 +261,28 @@ def optimizar_ataques():
                     max_territorios_conquistados = territorios_conquistados
                     mejor_permutacion = permutacion
 
-            resultado_optimizacion = {
-                "tipo": "Mejor permutación",
+            print("\nEl mejor orden de ataques para el ejercito seleccionado es:")
+            print(f"Permutacion: {mejor_permutacion}")
+            print(f"Territorios conquistados: {max_territorios_conquistados}")
+
+            guardar_resultados({
+                "tipo": "Mejor permutacion",
                 "ejercito": ejercito_seleccionado,
                 "mejor_permutacion": mejor_permutacion,
                 "territorios_conquistados": max_territorios_conquistados
-            }
-
-            print("\nEl mejor orden de ataques para el ejército seleccionado es:")
-            print(f"Permutación: {mejor_permutacion}")
-            print(f"Territorios conquistados: {max_territorios_conquistados}")
-
-            # Guardar resultados
-            guardar_resultados(resultado_optimizacion, "optimizaciones.json")
+            }, "optimizaciones.json")
             break
 
         elif opcion == "2":
-            # Selección de una permutación
             while True:
-                opcion_permutacion = input("\nSelecciona el número de permutación (1 a {}): ".format(len(permutaciones)))
+                opcion_permutacion = input("\nSelecciona el numero de permutacion (1 a {}): ".format(len(permutaciones)))
                 if opcion_permutacion.isdigit() and 1 <= int(opcion_permutacion) <= len(permutaciones):
                     opcion_permutacion = int(opcion_permutacion) - 1
                     permutacion_seleccionada = permutaciones[opcion_permutacion]
                     break
                 else:
-                    print("Entrada inválida. Por favor, introduce un número válido.")
+                    print("Entrada invalida. Por favor, introduce un numero valido.")
 
-            # Determinar el mejor ejército para la permutación
             mejor_ejercito = None
             max_territorios_conquistados = 0
 
@@ -300,48 +301,36 @@ def optimizar_ataques():
                     max_territorios_conquistados = territorios_conquistados
                     mejor_ejercito = ejercito
 
-            resultado_optimizacion = {
-                "tipo": "Mejor ejército",
+            print("\nEl mejor ejercito para la permutacion seleccionada es:")
+            print(f"Ejercito: {mejor_ejercito}")
+            print(f"Territorios conquistados: {max_territorios_conquistados}")
+
+            guardar_resultados({
+                "tipo": "Mejor ejercito",
                 "permutacion": permutacion_seleccionada,
                 "mejor_ejercito": mejor_ejercito,
                 "territorios_conquistados": max_territorios_conquistados
-            }
-
-            print("\nEl mejor ejército para la permutación seleccionada es:")
-            print(f"Ejército: {mejor_ejercito}")
-            print(f"Territorios conquistados: {max_territorios_conquistados}")
-
-            # Guardar resultados
-            guardar_resultados(resultado_optimizacion, "optimizaciones.json")
+            }, "optimizaciones.json")
             break
-
         else:
-            print("Opción inválida. Por favor, selecciona una opción válida (1 o 2).\n")
+            print("Opcion invalida. Por favor, selecciona una opcion valida (1 o 2).\n")
 
-# Función para guardar los resultados en un archivo JSON
 def guardar_resultados(data, filename):
     """
     Guarda los resultados en un archivo JSON en la misma carpeta que el archivo .py.
-
-    :param data: Datos a guardar (puede ser simulaciones o optimizaciones).
-    :param filename: Nombre del archivo JSON donde se guardarán los datos.
     """
     try:
-        # Obtener la ruta completa en la misma carpeta que el archivo .py
         ruta_actual = os.path.dirname(os.path.abspath(__file__))
         ruta_json = os.path.join(ruta_actual, filename)
 
-        # Leer el archivo si ya existe para añadir datos
         try:
             with open(ruta_json, "r") as file:
                 contenido_actual = json.load(file)
         except FileNotFoundError:
             contenido_actual = []
 
-        # Agregar los nuevos datos
         contenido_actual.append(data)
 
-        # Guardar en el archivo
         with open(ruta_json, "w") as file:
             json.dump(contenido_actual, file, indent=4)
         print(f"\nLos resultados han sido guardados en {ruta_json}.")
@@ -351,18 +340,18 @@ def guardar_resultados(data, filename):
 def menu_principal():
     while True:
         print("\n=======================================")
-        print("            MENÚ PRINCIPAL")
+        print("            MENU PRINCIPAL")
         print("=======================================")
         print("1. Mostrar reglas")
         print("2. Mostrar estado del tablero")
         print("3. Mostrar combinaciones posibles de tropas")
         print("4. Mostrar permutaciones posibles de ataques")
-        print("5. Simulación de juego")
+        print("5. Simulacion de juego")
         print("6. Optimizar ataques")
         print("7. Salir de la partida")
         print("=======================================")
 
-        opcion = input("Selecciona una opción (1-7): ")
+        opcion = input("Selecciona una opcion (1-7): ")
 
         if opcion == "1":
             mostrar_reglas()
@@ -380,7 +369,6 @@ def menu_principal():
             print("\nSaliendo de la partida. ¡Gracias por jugar!")
             break
         else:
-            print("\nOpción no válida. Por favor, selecciona una opción del 1 al 7.")
+            print("\nOpcion no valida. Por favor, selecciona una opcion del 1 al 7.")
 
-# Iniciar el menú principal
 menu_principal()
