@@ -1,0 +1,10 @@
+# Ignorar archivos de simulaciones y optimizaciones
+simulaciones.json
+optimizaciones.json
+
+# Ignorar otros archivos comunes
+*.pyc
+__pycache__/
+*.log
+.DS_Store
+.env
