@@ -29,7 +29,7 @@ Este proyecto es un juego estratégico basado en Python, donde los jugadores pue
    - Simular un juego.
    - Optimizar estrategias de ataque.
 
-## Archivos Disponibles
+## Archivos disponibles
 
 ### 1. `risk.py`
 Este archivo contiene la lógica principal del juego y se ejecuta en la consola. Los jugadores pueden interactuar con el sistema mediante un menú de texto.
@@ -39,21 +39,21 @@ Este nuevo archivo implementa la misma funcionalidad que `risk.py`, pero con una
 
 ## Funcionalidades y características principales
 
-### Comunes a Ambos Archivos:
+### Comunes a ambos archivos:
 
-- **Configuración Inicial:** Define territorios enemigos con diferentes niveles de defensa y un sistema de tropas con características específicas.
+- **Configuración inicial:** Define territorios enemigos con diferentes niveles de defensa y un sistema de tropas con características específicas.
 - **Selección de tropas**: Los jugadores tienen un presupuesto inicial y deben seleccionar combinaciones de tropas que maximicen su capacidad de ataque.
-- **Generación de Combinaciones:** Calcula todas las posibles combinaciones de tropas dentro del límite de puntos disponibles.
-- **Generación de Permutaciones:** Calcula todas las posibles permutaciones del orden de ataque a los territorios enemigos.
-- **Simulación de Juego:** Permite seleccionar un ejército y un orden de ataque para intentar conquistar los territorios.
-- **Optimización de Estrategias:** Encuentra el mejor orden de ataque para un ejército seleccionado o el mejor ejército para un orden de ataque específico.
+- **Generación de combinaciones:** Calcula todas las posibles combinaciones de tropas dentro del límite de puntos disponibles.
+- **Generación de permutaciones:** Calcula todas las posibles permutaciones del orden de ataque a los territorios enemigos.
+- **Simulación de juego:** Permite seleccionar un ejército y un orden de ataque para intentar conquistar los territorios.
+- **Optimización de estrategias:** Encuentra el mejor orden de ataque para un ejército seleccionado o el mejor ejército para un orden de ataque específico.
 
 ### Exclusivo de `risk.py`:
 - **Guardado de resultados**: Los resultados de las simulaciones y optimizaciones se guardan en archivos JSON para referencia futura.
 
 ### Exclusivo de `risk_tkinter.py`:
-- **Interfaz Gráfica:** Una ventana interactiva con botones que reemplaza el menú de texto.
-- **Cuadros de Diálogo:** Los mensajes de estado y opciones se muestran en cuadros emergentes en lugar de texto en consola.
+- **Interfaz gráfica:** Una ventana interactiva con botones que reemplaza el menú de texto.
+- **Cuadros de diálogo:** Los mensajes de estado y opciones se muestran en cuadros emergentes en lugar de texto en consola.
 
 ## Estructura del proyecto
 
